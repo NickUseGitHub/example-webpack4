@@ -1,0 +1,14 @@
+{
+  "name": "example-webpack4",
+  "version": "1.0.0",
+  "description": "for change webpack2 -> webpack4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chaiwat Tungtongsoontorn",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.20.2"
+  }
+}
