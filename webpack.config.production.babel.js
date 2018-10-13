@@ -3,19 +3,28 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const appPath = path.resolve(__dirname, './src')
-const twigPath = path.resolve(appPath, './templates')
 const cssAppPath = path.resolve(appPath, './scss')
+const twigPath = path.resolve(appPath, './templates')
+
 export const outputPath = path.resolve(__dirname, './dist')
+export const twigPages = [
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: path.resolve(twigPath, './main.twig'),
+    inject: false
+  })
+]
 
 export default function(env) { 
   return {
     mode: 'production',
     entry: {
       app: path.resolve(appPath, './index'),
-      main: path.resolve(cssAppPath, 'base.scss')
+      main: path.resolve(cssAppPath, './base.scss')
     },
     module: {
       rules: [
+        { test: /\.twig$/, use: 'twig-loader' },
         {
           // regular css files
           test: /\.css$/,
@@ -32,11 +41,7 @@ export default function(env) {
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: path.resolve(twigPath, './main.twig'),
-        inject: false
-      }),
+      ...twigPages,
       new ExtractTextPlugin({
         // define where to save the file
         filename: '[name].[chunkhash].bundle.css',

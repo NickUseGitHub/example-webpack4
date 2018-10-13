@@ -1,6 +1,7 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
-import webpackConf, { outputPath } from './webpack.config.production.babel'
+
+import webpackConf, { outputPath, twigPages } from './webpack.config.production.babel'
 
 export default function(env) {
   return Object.assign({}, webpackConf(env), {
@@ -9,6 +10,7 @@ export default function(env) {
       new Dotenv({
         path: './.dev-env'
       }),
+      ...twigPages,
       new ExtractTextPlugin({
         // define where to save the file
         filename: 'css/[name].bundle.css',
